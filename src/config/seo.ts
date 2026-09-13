@@ -2,8 +2,17 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 
+const getBaseUrl = (): URL => {
+  try {
+    const rawUrl = siteConfig.url || "http://localhost:3000";
+    return new URL(rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+};
+
 export const seoConfig: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: getBaseUrl(),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`

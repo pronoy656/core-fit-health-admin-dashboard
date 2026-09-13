@@ -3,9 +3,9 @@ import type { MetadataRoute } from "next";
 import { env } from "@/env";
 
 export default function robots(): MetadataRoute.Robots {
-  // FIXME: Point sitemap to your public site URL (consider using NEXT_PUBLIC_SITE_URL)
+  const siteUrl = env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   return {
     rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: `${env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`
+    sitemap: `${siteUrl}/sitemap.xml`
   };
 }
