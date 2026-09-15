@@ -183,7 +183,7 @@ export default function FeedbackPage() {
             <div className="flex gap-2 overflow-x-auto pb-2">
               {statsData.data.categoryDistribution.map(stat => (
                 <div key={stat._id} className="flex-none bg-muted/30 rounded-lg p-2 px-3 text-center min-w-[100px]">
-                  <div className="text-[10px] text-muted-foreground mb-1 font-semibold">{stat._id.replace('_', ' ')}</div>
+                  <div className="text-[10px] text-muted-foreground mb-1 font-semibold">{(stat._id || 'UNKNOWN').replace('_', ' ')}</div>
                   <div className="text-lg font-semibold">{stat.count}</div>
                 </div>
               ))}
