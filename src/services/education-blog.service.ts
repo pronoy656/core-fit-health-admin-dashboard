@@ -4,6 +4,8 @@ import {
   ISingleBlogResponse,
   ICreateBlogPayload,
 } from "@/types/educationBlog";
+import { getAccessToken } from "@/lib/cookie-client";
+import { env } from "@/env";
 
 export const educationBlogService = {
   getEducationBlogs: async (params?: {
@@ -37,10 +39,22 @@ export const educationBlogService = {
     if (payload.status) formData.append('status', payload.status);
     if (thumbnailFile) formData.append('thumbnail', thumbnailFile);
 
-    const response = await api.post<ISingleBlogResponse>('/education-blogs', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    const token = getAccessToken();
+    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/education-blogs`, {
+      method: 'POST',
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: formData,
     });
-    return response.data;
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Failed to create blog');
+    }
+    
+    const data = await response.json();
+    return data;
   },
 
   updateEducationBlog: async (
@@ -55,10 +69,22 @@ export const educationBlogService = {
     if (payload.status) formData.append('status', payload.status);
     if (newThumbnailFile) formData.append('thumbnail', newThumbnailFile);
 
-    const response = await api.patch<ISingleBlogResponse>(`/education-blogs/${blogId}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    const token = getAccessToken();
+    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/education-blogs/${blogId}`, {
+      method: 'PATCH',
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: formData,
     });
-    return response.data;
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Failed to update blog');
+    }
+    
+    const data = await response.json();
+    return data;
   },
 
   deleteEducationBlog: async (blogId: string): Promise<void> => {
