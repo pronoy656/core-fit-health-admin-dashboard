@@ -104,12 +104,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const adminName = profile?.name || "System Admin";
   const adminEmail = profile?.email || "admin@example.com";
-  const adminInitials = adminName
+  const adminRole = profile?.role || "ADMIN";
+  const adminImage = profile?.profileImage || profile?.avatar || "";
+  const adminInitials = (adminName || "SA")
     .split(" ")
+    .filter(Boolean)
     .map((n) => n[0])
     .join("")
     .slice(0, 2)
-    .toUpperCase();
+    .toUpperCase() || "A";
 
   return (
     <Sidebar
@@ -200,7 +203,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {/* Collapsed Icon state */}
             <div className="hidden flex-col items-center gap-4 group-data-[collapsible=icon]:flex">
               <Avatar size="lg" className="h-8 w-8">
-                <AvatarImage src={profile?.avatar || "https://github.com/shadcn.png"} />
+                <AvatarImage src={adminImage} alt={adminName} />
                 <AvatarFallback>{adminInitials}</AvatarFallback>
               </Avatar>
             </div>
@@ -209,7 +212,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <div className="group-data-[collapsible=icon]:hidden">
               <div className="flex items-center justify-start gap-3 rounded-lg border border-border/50 bg-muted/20 p-2">
                 <Avatar size="lg" className="size-9 ring-2 ring-primary/20">
-                  <AvatarImage src={profile?.avatar || "https://github.com/shadcn.png"} />
+                  <AvatarImage src={adminImage} alt={adminName} />
                   <AvatarFallback className="bg-primary/10 text-primary font-bold">
                     {adminInitials}
                   </AvatarFallback>
@@ -218,7 +221,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <div className="flex items-center gap-1.5">
                     <h2 className="truncate text-sm font-semibold">{adminName}</h2>
                     <span className="inline-flex items-center rounded-sm bg-primary/15 px-1 py-0.2 text-[10px] font-semibold text-primary">
-                      {profile?.role || "ADMIN"}
+                      {adminRole}
                     </span>
                   </div>
                   <h3 className="truncate text-xs text-muted-foreground">{adminEmail}</h3>

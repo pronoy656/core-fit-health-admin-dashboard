@@ -5,6 +5,7 @@ import { removeAccessToken } from "@/lib/cookie-client";
 
 import { adminProfileService } from "@/services/admin-profile.service";
 import { IUpdateProfilePayload, IChangePasswordPayload, IApiResponse } from "@/types/adminProfile";
+import { AUTH_QUERY_KEY } from "@/hooks/use-auth";
 
 export const ADMIN_PROFILE_QUERY_KEY = ["admin-profile"] as const;
 
@@ -23,6 +24,7 @@ export function useUpdateAdminProfile() {
       adminProfileService.updateAdminProfile(payload),
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ADMIN_PROFILE_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
       toast.success(res.message || "Profile updated successfully");
     },
     onError: (error: any) => {

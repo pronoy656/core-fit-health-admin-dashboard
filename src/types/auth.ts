@@ -23,13 +23,18 @@ export interface LoginData {
 }
 
 export interface AdminProfile {
-  _id: string;
+  _id?: string;
+  id?: string;
   name: string;
   email: string;
   role: string;
-  status: string;
+  status?: string;
   isVerified?: boolean;
   avatar?: string;
+  profileImage?: string;
+  phone?: string;
+  location?: string;
+  dateOfBirth?: string;
 }
 
 export type LoginResponse = ApiResponse<LoginData>;

@@ -13,12 +13,12 @@ export const authService = {
 
   getProfile: async (signal?: AbortSignal): Promise<AdminProfile> => {
     try {
-      const res = await get<ProfileResponse>("/auth/me", { signal });
-      return res.data;
-    } catch {
-      // Fallback in case backend exposes it at /users/me
       const res = await get<ProfileResponse>("/users/me", { signal });
-      return res.data;
+      return (res as any)?.data || res;
+    } catch {
+      // Fallback in case backend exposes it at /auth/me
+      const res = await get<ProfileResponse>("/auth/me", { signal });
+      return (res as any)?.data || res;
     }
   },
 

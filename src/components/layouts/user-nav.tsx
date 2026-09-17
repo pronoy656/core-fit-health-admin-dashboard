@@ -22,12 +22,14 @@ export function UserNav() {
   const adminName = profile?.name || "System Admin";
   const adminEmail = profile?.email || "admin@example.com";
   const adminRole = profile?.role || "ADMIN";
-  const adminInitials = adminName
+  const adminImage = profile?.profileImage || profile?.avatar || "";
+  const adminInitials = (adminName || "SA")
     .split(" ")
+    .filter(Boolean)
     .map((n) => n[0])
     .join("")
     .slice(0, 2)
-    .toUpperCase();
+    .toUpperCase() || "A";
 
   return (
     <DropdownMenu>
@@ -37,7 +39,7 @@ export function UserNav() {
           className="relative flex h-9 w-9 items-center justify-center rounded-full outline-none ring-2 ring-primary/20 transition hover:ring-primary/40 focus-visible:ring-primary"
         >
           <Avatar className="h-9 w-9">
-            <AvatarImage src={profile?.avatar || "https://github.com/shadcn.png"} alt={adminName} />
+            <AvatarImage src={adminImage} alt={adminName} />
             <AvatarFallback className="bg-primary/10 text-primary font-bold text-xs">
               {adminInitials}
             </AvatarFallback>
