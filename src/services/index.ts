@@ -7,3 +7,5 @@ export * from './education-blog.service';
 export * from './faq.service'; 
 export * from './feedback.service'; 
 export * from './userManagement.service'; 
+export * from './workout.service';
+export * from './exercise.service';

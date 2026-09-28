@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Activity,
   BarChart3,
   Bell,
   Megaphone,
@@ -15,7 +14,8 @@ import {
   Settings,
   Shield,
   Users,
-  ChevronRight
+  ChevronRight,
+  Flame
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -85,9 +85,8 @@ const data = {
     {
       title: "Health & Fitness",
       items: [
-        { title: "Fitness Tracking", url: "/fitness", icon: Dumbbell },
-        { title: "Lab Results", url: "/lab-results", icon: FlaskConical },
-        { title: "Metabolic Index", url: "/metabolic-index", icon: Activity }
+        { title: "Exercise Management", url: "/workouts", icon: Dumbbell },
+        { title: "Lab Results", url: "/lab-results", icon: FlaskConical }
       ]
     },
     {

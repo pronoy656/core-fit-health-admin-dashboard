@@ -6,3 +6,5 @@ export type { User } from "./user";
 export * from './notification';
 
 export * from './educationBlog';
+export * from './workout';
+export * from './exercise';

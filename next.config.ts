@@ -10,6 +10,26 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   reactCompiler: true,
   htmlLimitedBots: /.*/,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com"
+      },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com"
+      },
+      {
+        protocol: "https",
+        hostname: "**"
+      },
+      {
+        protocol: "http",
+        hostname: "**"
+      }
+    ]
+  },
   turbopack: {
     rules: {
       "*.svg": {

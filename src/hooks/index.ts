@@ -7,5 +7,7 @@ export * from "./use-users";
 export * from './use-notifications';
 
 export * from './use-education-blogs';
-export * from './use-admin-profile';  
+export * from './use-admin-profile';
+export * from './use-workouts';
+export * from './use-exercises';  
  
